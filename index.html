@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gonzalo La Chica — Data & Analytics Engineer</title>
+  <meta name="description" content="HUB Analyst at Clayton State University. Building data infrastructure, BI dashboards, and analytics tooling." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar__inner">
+      <a href="#" class="topbar__brand">G. La Chica</a>
+      <nav class="topbar__nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#education">Education</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__meta">Portfolio — Updated April 2026</div>
+    <h1 class="hero__title">
+      Data &amp; Analytics<br />
+      Engineering<span class="accent">.</span>
+    </h1>
+    <p class="hero__lede">
+      I build data infrastructure, BI dashboards, and analytics tooling.
+      Currently HUB Analyst at Clayton State University IT and an M.S. Data
+      Science student. Based in Atlanta, GA.
+    </p>
+    <div class="hero__stack">
+      <span>Python</span><span>SQL</span><span>Power BI</span><span>ServiceNow</span><span>DAX</span><span>Power Query</span>
+    </div>
+  </section>
+
+  <main>
+
+ <!-- About -->
+<section id="about" class="section">
+  <div class="section__label">01 — About</div>
+  <div class="section__body about__grid">
+    <div class="about__photo">
+      <img src="assets/profile.jpg" alt="Gonzalo La Chica" />
+    </div>
+    <div class="about__text">
+      <p>
+        I'm a data analyst turning into a data engineer. My day job at
+        Clayton State's IT department is building ETL pipelines from
+        ServiceNow, Active Directory, and PDQ into Power BI — data
+        infrastructure that actually gets used by the team.
+      </p>
+      <p>
+        I'm three months into an M.S. Data Science program at Clayton State
+        where I focus on relational design, Python, and cloud analytics. My
+        near-term goal is to grow into an Analytics Engineer or Junior Data
+        Engineer role, adding SQL depth, PySpark, and dbt to my Power BI
+        foundation.
+      </p>
+      <p>
+        Outside work I care about sports analytics, good coffee, and
+        building things that ship.
+      </p>
+    </div>
+  </div>
+</section>
+
+    <!-- Work / Projects -->
+    <section id="work" class="section">
+      <div class="section__label">02 — Selected Work</div>
+      <div class="section__body">
+
+        <article class="project">
+          <div class="project__index">01</div>
+          <div class="project__content">
+            <h3 class="project__title">HUB Analytics Dashboard</h3>
+            <p class="project__kicker">Anomaly detection pipeline — Clayton State IT</p>
+            <p class="project__desc">
+              Python/pandas ETL pulling from ServiceNow, Active Directory,
+              PDQ, and Asset Management. Outputs anomaly reports to SharePoint
+              CSVs consumed by Power BI. Includes automated daily refresh via
+              Task Scheduler.
+            </p>
+            <div class="project__tags">
+              <span>Python</span><span>Pandas</span><span>Power BI</span><span>Power Query</span><span>ServiceNow API</span>
+            </div>
+            <div class="project__links">
+              <a href="#">Case study →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project__index">02</div>
+          <div class="project__content">
+            <h3 class="project__title">Service Health Monitor</h3>
+            <p class="project__kicker">Uptime pipeline with Gmail + Teams alerts</p>
+            <p class="project__desc">
+              Python monitor that logs service response times to CSV,
+              integrates with Power BI for historical visualization, and fires
+              alerts to Gmail SMTP and Microsoft Teams webhooks when health
+              degrades.
+            </p>
+            <div class="project__tags">
+              <span>Python</span><span>SMTP</span><span>Webhooks</span><span>Power BI</span>
+            </div>
+            <div class="project__links">
+              <a href="#">Case study →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project__index">03</div>
+          <div class="project__content">
+            <h3 class="project__title">ReceiptPal Database</h3>
+            <p class="project__kicker">Relational schema design &amp; implementation</p>
+            <p class="project__desc">
+              8-table normalized MySQL schema for a receipt-tracking
+              application, including referential integrity, M:N resolution via
+              associative entities, CHECK constraints, and automated
+              constraint-validation scripts.
+            </p>
+            <div class="project__tags">
+              <span>MySQL</span><span>Workbench</span><span>ERD</span><span>DDL</span><span>Normalization</span>
+            </div>
+            <div class="project__links">
+              <a href="#">Case study →</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="section">
+      <div class="section__label">03 — Education</div>
+      <div class="section__body">
+
+        <div class="entry">
+          <div class="entry__when">Jan 2026 — Present</div>
+          <div class="entry__what">
+            <h3>M.S. Data Science</h3>
+            <p>Clayton State University</p>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry__when">—</div>
+          <div class="entry__what">
+            <h3>B.S. Business Administration and Marketing</h3>
+            <p>Clayton State University</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Certifications -->
+    <section id="certifications" class="section">
+      <div class="section__label">04 — Certifications</div>
+      <div class="section__body">
+        <ul class="cert-list">
+          <li><span class="cert-list__name">ServiceNow CSA</span> <span class="cert-list__status">In progress</span></li>
+          <li><span class="cert-list__name">Microsoft PL-300 (Power BI)</span> <span class="cert-list__status">Planned</span></li>
+          <li><span class="cert-list__name">Microsoft DP-700 (Fabric Data Engineer)</span> <span class="cert-list__status">Planned</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section section--contact">
+      <div class="section__label">05 — Contact</div>
+      <div class="section__body">
+        <p class="contact__lede">
+          Open to Analytics Engineer, BI Developer, and Junior Data Engineer
+          roles in the Atlanta area.
+        </p>
+        <div class="contact__links">
+          <a href="mailto:your.email@example.com">gonzalolachica777@gmail.com</a>
+          <a href="https://github.com/gonzalolachica" target="_blank" rel="noopener">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/gonzalolachica/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <span>© 2026 Gonzalo La Chica</span>
+      <span>Built with HTML, CSS &amp; care.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
