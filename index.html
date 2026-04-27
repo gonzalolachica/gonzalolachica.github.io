@@ -15,7 +15,7 @@
   <!-- Top bar -->
   <header class="topbar">
     <div class="topbar__inner">
-      <a href="#" class="topbar__brand">G. La Chica</a>
+      <a href="#" class="topbar__brand">Gonzalo La Chica</a>
       <nav class="topbar__nav" aria-label="Primary">
         <a href="#about">About</a>
         <a href="#work">Work</a>
@@ -79,22 +79,37 @@
       <div class="section__label">02 — Selected Work</div>
       <div class="section__body">
 
-        <article class="project">
+<article class="project project--featured">
           <div class="project__index">01</div>
           <div class="project__content">
-            <h3 class="project__title">HUB Analytics Dashboard</h3>
-            <p class="project__kicker">Anomaly detection pipeline — Clayton State IT</p>
+            <h3 class="project__title">HUB Incidents Dashboard</h3>
+            <p class="project__kicker">Executive BI — Clayton State IT leadership</p>
             <p class="project__desc">
-              Python/pandas ETL pulling from ServiceNow, Active Directory,
-              PDQ, and Asset Management. Outputs anomaly reports to SharePoint
-              CSVs consumed by Power BI. Includes automated daily refresh via
-              Task Scheduler.
+              The flagship incident-management dashboard used daily by HUB
+              leadership to monitor service performance. End-to-end build —
+              from the data pipeline through the DAX model to the final
+              Power BI report.
             </p>
-            <div class="project__tags">
-              <span>Python</span><span>Pandas</span><span>Power BI</span><span>Power Query</span><span>ServiceNow API</span>
+            <p class="project__desc">
+              Fully operational intelligence tool with features like KPIs leadership: MTTR, SLA
+              compliance %, open backlog, reopen rate, and a forecasted
+              ticket-volume trendline so the team can see where the queue is
+              headed, not just where it's been.
+            </p>
+
+            <div class="project__figure">
+              <img src="assets/hub-architecture.svg" alt="Medallion architecture diagram: Bronze ingestion sources flow into Silver Python and pandas ETL with anomaly detection, then into Gold layer SharePoint CSVs and Power BI dashboard. Windows Task Scheduler orchestrates the daily refresh." />
+              <figcaption>Medallion architecture — Bronze ingestion, Silver refinement, Gold consumption.</figcaption>
             </div>
-            <div class="project__links">
-              <a href="#">Case study →</a>
+
+            <p class="project__desc project__desc--muted">
+              Part of a multi-domain BI suite (incidents · anomaly reports ·
+              knowledge management). Dashboard screenshots available during
+              interviews under NDA.
+            </p>
+
+            <div class="project__tags">
+              <span>Power BI</span><span>DAX</span><span>Power Query</span><span>Python</span><span>Pandas</span><span>ServiceNow API</span><span>SharePoint</span>
             </div>
           </div>
         </article>
@@ -148,15 +163,15 @@
       <div class="section__body">
 
         <div class="entry">
-          <div class="entry__when">Jan 2026 — Present</div>
+          <div class="entry__when">Aug 2025 — Present</div>
           <div class="entry__what">
-            <h3>M.S. Data Science</h3>
+            <h3>M.S. Data Science in Data Intelligence</h3>
             <p>Clayton State University</p>
           </div>
         </div>
 
         <div class="entry">
-          <div class="entry__when">—</div>
+          <div class="entry__when">Aug 2023 — July 2025</div>
           <div class="entry__what">
             <h3>B.S. Business Administration and Marketing</h3>
             <p>Clayton State University</p>
@@ -187,7 +202,7 @@
           roles in the Atlanta area.
         </p>
         <div class="contact__links">
-          <a href="mailto:your.email@example.com">gonzalolachica777@gmail.com</a>
+          <a href="mailto:your.email@example.com">glachica@student.clayton.edu</a>
           <a href="https://github.com/gonzalolachica" target="_blank" rel="noopener">GitHub ↗</a>
           <a href="https://www.linkedin.com/in/gonzalolachica/" target="_blank" rel="noopener">LinkedIn ↗</a>
         </div>
