@@ -130,6 +130,18 @@ a:hover { color: var(--accent); border-color: var(--accent); }
 .hero__stack span::after { content: " /"; margin-left: .6rem; color: var(--rule); }
 .hero__stack span:last-child::after { content: ""; }
 
+.hero__notice {
+  margin-top: 1.5rem;
+  padding: .6rem .9rem;
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  color: var(--accent-ink);
+  background: var(--bg-alt);
+  border: 1px dashed var(--rule);
+  border-radius: 3px;
+  display: inline-block;
+}
+
 /* ---------- Section scaffold ---------- */
 .section {
   max-width: var(--max);

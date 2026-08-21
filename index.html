@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gonzalo La Chica — Data & Analytics Engineer</title>
-  <meta name="description" content="HUB Analyst at Clayton State University. Building data infrastructure, BI dashboards, and analytics tooling." />
+  <meta name="description" content="Research Assistant at Clayton State University. Building data infrastructure, BI dashboards, and analytics tooling." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet" />
@@ -28,19 +28,22 @@
 
   <!-- Hero -->
   <section class="hero">
-    <div class="hero__meta">Portfolio — Updated April 2026</div>
+    <div class="hero__meta">Portfolio — Updated August 2026</div>
     <h1 class="hero__title">
       Data &amp; Analytics<br />
       Engineering<span class="accent">.</span>
     </h1>
     <p class="hero__lede">
-      I build data infrastructure, BI dashboards, and analytics tooling.
-      Currently HUB Analyst at Clayton State University IT and an M.S. Data
-      Science student. Based in Atlanta, GA.
+      I build data infrastructure, BI dashboards, and analytics tooling —
+      these days as a Research Assistant at Clayton State University,
+      alongside an M.S. in Data Science. Based in Atlanta, GA.
     </p>
     <div class="hero__stack">
       <span>Python</span><span>SQL</span><span>Power BI</span><span>ServiceNow</span><span>DAX</span><span>Power Query</span>
     </div>
+    <p class="hero__notice">
+      This site is actively getting a refresh — a few sections may shift over the next few weeks as I update them.
+    </p>
   </section>
 
   <main>
@@ -54,21 +57,31 @@
     </div>
     <div class="about__text">
       <p>
-        I'm a data analyst turning into a data engineer. My day job at
-        Clayton State's IT department is building ETL pipelines from
-        ServiceNow, Active Directory, and PDQ into Power BI — data
-        infrastructure that actually gets used by the team.
+        I'm a data analyst working my way into data engineering. Right now
+        I'm a Research Assistant at Clayton State University, building an
+        agentic AI system that verifies extreme rainfall detection over
+        Atlanta by cross-checking NASA ERA5 reanalysis data against NOAA
+        ground-truth storm reports — part of my M.S. special project. It's
+        early-stage but active: so far I've built the data ingestion
+        pipeline (ERA5 plus climatology baselines, with config-driven
+        regional scoping) and I'm designing an LLM-orchestrated
+        verification agent in LangGraph that flags events using a causal
+        drift score.
       </p>
       <p>
-        I'm three months into an M.S. Data Science program at Clayton State
-        where I focus on relational design, Python, and cloud analytics. My
-        near-term goal is to grow into an Analytics Engineer or Junior Data
-        Engineer role, adding SQL depth, PySpark, and dbt to my Power BI
-        foundation.
+        That builds on the BI and pipeline work I did previously as a HUB
+        Analyst in the university's IT department (ETL pipelines from
+        ServiceNow, Active Directory, and PDQ into Power BI — see the
+        dashboards below), and on the M.S. in Data Science I'm about a year
+        into, focused on relational design, Python, and cloud analytics. At
+        the moment I'm heads-down studying for the Microsoft PL-300 (Power
+        BI) exam, with DP-700 (Fabric Data Engineer) up next. Longer term,
+        I'm aiming for an Analytics Engineer or Junior Data Engineer role,
+        adding SQL depth, PySpark, and dbt to my Power BI foundation.
       </p>
       <p>
-        Outside work I care about sports analytics, good coffee, and
-        building things that ship.
+        Outside of work I follow sports analytics, drink more coffee than I
+        should, and like building things that actually ship.
       </p>
     </div>
   </div>
@@ -102,10 +115,21 @@
               <figcaption>Medallion architecture — Bronze ingestion, Silver refinement, Gold consumption.</figcaption>
             </div>
 
+            <div class="project__figure">
+              <img src="assets/hub-incidents-dashboard.png" alt="IT Incident Management Dashboard in Power BI, showing total incidents, opened incidents, same-day resolution rate, average resolution days, reopen rate, SLA compliance, resolution trends, and team performance." />
+              <figcaption>Executive Overview — IT Incident Management Dashboard (Power BI).</figcaption>
+            </div>
+
+            <div class="project__figure">
+              <img src="assets/knowledge-management-dashboard.png" alt="Knowledge Management Intelligence Dashboard in Power BI, showing article counts by knowledge base and department, top contributors, feedback trends, compliance overview, and a knowledge management maturity score." />
+              <figcaption>Knowledge Management Intelligence Dashboard — the KM leg of the same BI suite.</figcaption>
+            </div>
+
             <p class="project__desc project__desc--muted">
               Part of a multi-domain BI suite (incidents · anomaly reports ·
-              knowledge management). Dashboard screenshots available during
-              interviews under NDA.
+              knowledge management). Names and select rows are redacted
+              above for privacy — happy to walk through the live reports in
+              an interview.
             </p>
 
             <div class="project__tags">
@@ -116,6 +140,29 @@
 
         <article class="project">
           <div class="project__index">02</div>
+          <div class="project__content">
+            <h3 class="project__title">Agentic Extreme-Weather Verification System</h3>
+            <p class="project__kicker">M.S. special project — Research Assistant, Clayton State University</p>
+            <p class="project__desc">
+              An agentic AI system that verifies extreme rainfall detection
+              over Atlanta by cross-checking NASA ERA5 reanalysis data
+              against NOAA ground-truth storm reports.
+            </p>
+            <p class="project__desc">
+              Early-stage and actively in development. So far: a data
+              ingestion pipeline pulling ERA5 and climatology baselines with
+              config-driven regional scoping, plus the initial design of an
+              LLM-orchestrated verification agent (LangGraph) that flags
+              events using a causal drift score.
+            </p>
+            <div class="project__tags">
+              <span>LangGraph</span><span>LLM Agents</span><span>ERA5</span><span>NOAA</span><span>Python</span><span>Causal Inference</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project__index">03</div>
           <div class="project__content">
             <h3 class="project__title">Service Health Monitor</h3>
             <p class="project__kicker">Uptime pipeline with Gmail + Teams alerts</p>
@@ -135,7 +182,7 @@
         </article>
 
         <article class="project">
-          <div class="project__index">03</div>
+          <div class="project__index">04</div>
           <div class="project__content">
             <h3 class="project__title">ReceiptPal Database</h3>
             <p class="project__kicker">Relational schema design &amp; implementation</p>
@@ -186,9 +233,9 @@
       <div class="section__label">04 — Certifications</div>
       <div class="section__body">
         <ul class="cert-list">
-          <li><span class="cert-list__name">ServiceNow CSA</span> <span class="cert-list__status">In progress</span></li>
-          <li><span class="cert-list__name">Microsoft PL-300 (Power BI)</span> <span class="cert-list__status">Planned</span></li>
-          <li><span class="cert-list__name">Microsoft DP-700 (Fabric Data Engineer)</span> <span class="cert-list__status">Planned</span></li>
+          <li><span class="cert-list__name">ServiceNow CSA</span> <span class="cert-list__status">On hold</span></li>
+          <li><span class="cert-list__name">Microsoft PL-300 (Power BI)</span> <span class="cert-list__status">Actively studying — exam upcoming</span></li>
+          <li><span class="cert-list__name">Microsoft DP-700 (Fabric Data Engineer)</span> <span class="cert-list__status">Up next</span></li>
         </ul>
       </div>
     </section>
