@@ -1,0 +1,514 @@
+<title>Bank Fraud &amp; Scam Complaint Analytics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: light;
+    --bg:            #f4f6f4;
+    --surface:       #ffffff;
+    --surface-sunk:  #eef1ef;
+    --ink:           #13181b;
+    --ink-2:         #454f54;
+    --ink-3:         #7c878c;
+    --line:          #dfe4e1;
+    --line-soft:     #ecefec;
+    --accent:        #1d5c8a;
+    --accent-ink:    #ffffff;
+    --accent-soft:   #dfeaf2;
+    --accent-soft-line: #c3d9e7;
+    --code-bg:       #101820;
+    --code-ink:      #dce6ea;
+    --code-kw:       #7fc4e8;
+    --code-str:      #b9d98a;
+    --code-com:      #6c7d86;
+    --good:          #0ca30c;
+    --warning:       #b8790a;
+    --critical:      #c03a3a;
+    --neutral-tier:  #6b7378;
+    --shadow: 0 1px 2px rgba(19,24,27,0.04), 0 8px 24px -12px rgba(19,24,27,0.10);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg:            #12161a;
+      --surface:       #1a1f24;
+      --surface-sunk:  #161b1f;
+      --ink:           #eef2f3;
+      --ink-2:         #b6c0c4;
+      --ink-3:         #82898d;
+      --line:          #2a3136;
+      --line-soft:     #232a2e;
+      --accent:        #6fb3e0;
+      --accent-ink:    #0b1a24;
+      --accent-soft:   #1c2e3a;
+      --accent-soft-line: #2c4a5c;
+      --code-bg:       #0b1014;
+      --code-ink:      #d7e2e6;
+      --code-kw:       #8fd0f2;
+      --code-str:      #c3e39a;
+      --code-com:      #6c7d86;
+      --good:          #3cc23c;
+      --warning:       #e0a53a;
+      --critical:      #e2726e;
+      --neutral-tier:  #9aa3a8;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg:            #12161a;
+    --surface:       #1a1f24;
+    --surface-sunk:  #161b1f;
+    --ink:           #eef2f3;
+    --ink-2:         #b6c0c4;
+    --ink-3:         #82898d;
+    --line:          #2a3136;
+    --line-soft:     #232a2e;
+    --accent:        #6fb3e0;
+    --accent-ink:    #0b1a24;
+    --accent-soft:   #1c2e3a;
+    --accent-soft-line: #2c4a5c;
+    --code-bg:       #0b1014;
+    --code-ink:      #d7e2e6;
+    --code-kw:       #8fd0f2;
+    --code-str:      #c3e39a;
+    --code-com:      #6c7d86;
+    --good:          #3cc23c;
+    --warning:       #e0a53a;
+    --critical:      #e2726e;
+    --neutral-tier:  #9aa3a8;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--accent-soft); color: var(--ink); }
+  a { color: var(--accent); }
+  code, .mono { font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace; }
+  .tabular { font-variant-numeric: tabular-nums; }
+
+  .page { max-width: 900px; margin: 0 auto; padding: 0 24px 100px; }
+  .prose { max-width: 700px; }
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; text-wrap: balance; margin: 0; color: var(--ink); }
+  p { margin: 0 0 14px; color: var(--ink-2); }
+  p:last-child { margin-bottom: 0; }
+
+  /* ---- top bar ---- */
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 22px 0 0; font-size: 12.5px; color: var(--ink-3); }
+  .topbar .brand { font-family: 'Fraunces', serif; font-weight: 600; font-size: 14px; color: var(--ink); letter-spacing: -0.01em; }
+  .topbar .tools { display: flex; gap: 16px; }
+  .topbar a.back { color: var(--ink-3); text-decoration: none; }
+  .topbar a.back:hover { color: var(--accent); }
+
+  /* ---- hero ---- */
+  .hero { padding: 56px 0 40px; border-bottom: 1px solid var(--line); }
+  .eyebrow { font-size: 12px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin-bottom: 16px; }
+  .hero h1 { font-size: clamp(32px, 4.4vw, 46px); line-height: 1.08; letter-spacing: -0.015em; }
+  .hero .dek { font-size: 18px; color: var(--ink-2); max-width: 660px; margin-top: 16px; }
+  .hero .byline { margin-top: 22px; font-size: 13px; color: var(--ink-3); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .pill { display: inline-flex; align-items: center; font-size: 12px; padding: 3px 10px; border-radius: 20px; background: var(--surface-sunk); border: 1px solid var(--line); color: var(--ink-2); }
+
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin-top: 36px; }
+  @media (max-width: 720px) { .stat-row { grid-template-columns: repeat(2, 1fr); } }
+  .stat { background: var(--surface); padding: 18px 18px 16px; }
+  .stat .n { font-family: 'IBM Plex Mono', monospace; font-size: 27px; font-weight: 600; letter-spacing: -0.01em; }
+  .stat .l { font-size: 11.5px; color: var(--ink-3); margin-top: 5px; text-transform: uppercase; letter-spacing: .04em; }
+
+  /* ---- sections ---- */
+  section.block { padding: 52px 0; border-bottom: 1px solid var(--line); }
+  section.block:last-of-type { border-bottom: none; }
+  .block-hdr { display: flex; align-items: baseline; gap: 14px; margin-bottom: 24px; }
+  .block-num { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-soft-line); width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .block-hdr h2 { font-size: 25px; letter-spacing: -0.01em; }
+  .block-sub { font-size: 13.5px; color: var(--ink-3); margin-top: 3px; }
+
+  /* ---- code panel ---- */
+  .codepanel { background: var(--code-bg); border-radius: 10px; overflow: hidden; margin: 18px 0; box-shadow: var(--shadow); }
+  .codepanel .cp-hdr { display: flex; align-items: center; justify-content: space-between; padding: 9px 14px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .codepanel .cp-hdr span { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--code-com); }
+  .codepanel pre { margin: 0; padding: 16px 18px 18px; overflow-x: auto; font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; line-height: 1.7; color: var(--code-ink); }
+  .kw { color: var(--code-kw); }
+  .str { color: var(--code-str); }
+  .cm { color: var(--code-com); font-style: italic; }
+
+  .step-list { display: flex; flex-direction: column; gap: 10px; margin: 18px 0 0; padding: 0; list-style: none; }
+  .step-list li { display: flex; gap: 12px; font-size: 14.5px; color: var(--ink-2); }
+  .step-list li::before { content: "→"; color: var(--accent); flex: none; font-weight: 600; }
+
+  /* ---- findings grid ---- */
+  .findings { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 22px; }
+  @media (max-width: 720px) { .findings { grid-template-columns: 1fr; } }
+  .finding { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; }
+  .finding .fig { font-family: 'IBM Plex Mono', monospace; font-size: 22px; font-weight: 600; color: var(--accent); }
+  .finding .fig .vs { color: var(--ink-3); font-size: 15px; font-weight: 400; margin: 0 4px; }
+  .finding h4 { font-family: 'IBM Plex Sans', sans-serif; font-size: 14px; font-weight: 600; margin: 8px 0 6px; color: var(--ink); }
+  .finding p { font-size: 13.5px; margin: 0; }
+
+  /* ---- company share legend ---- */
+  .tier-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0; }
+  .tier-chip { display: flex; align-items: center; gap: 7px; font-size: 12.5px; padding: 6px 12px; border-radius: 8px; background: var(--surface-sunk); border: 1px solid var(--line); }
+  .tier-dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+  .tier-chip b { font-family: 'IBM Plex Mono', monospace; font-weight: 600; }
+
+  /* ---- dashboard screenshot ---- */
+  .dash-shot { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; box-shadow: var(--shadow); margin-bottom: 18px; }
+  .dash-shot img { display: block; width: 100%; height: auto; border-radius: 7px; border: 1px solid var(--line); }
+  .dash-shot figcaption { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 12px 6px 2px; font-size: 12.5px; color: var(--ink-3); }
+  .dash-shot figcaption a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .dash-shot figcaption a:hover { text-decoration: underline; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 13px; font-weight: 600; color: var(--accent-ink); background: var(--accent); padding: 9px 16px; border-radius: 8px; text-decoration: none; }
+  .btn:hover { opacity: .9; }
+
+  /* ---- skills ---- */
+  .chip-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .skill-chip { font-size: 13px; padding: 7px 13px; border-radius: 8px; background: var(--surface); border: 1px solid var(--line); color: var(--ink-2); }
+  .skill-chip b { color: var(--ink); font-weight: 600; }
+
+  /* ---- resume bullets ---- */
+  .resume-card { background: var(--surface-sunk); border: 1px solid var(--line); border-radius: 12px; padding: 26px 28px; margin-top: 20px; }
+  .resume-card h3 { font-size: 15px; font-family: 'IBM Plex Sans', sans-serif; font-weight: 600; margin-bottom: 4px; }
+  .resume-card .hint { font-size: 12.5px; color: var(--ink-3); margin-bottom: 16px; }
+  .resume-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .resume-list li { font-size: 14.5px; color: var(--ink); padding-left: 20px; position: relative; }
+  .resume-list li::before { content: "•"; position: absolute; left: 4px; color: var(--accent); }
+  .resume-list b { font-family: 'IBM Plex Mono', monospace; font-weight: 600; color: var(--accent); }
+
+  .note-card { background: var(--accent-soft); border: 1px solid var(--accent-soft-line); border-radius: 10px; padding: 16px 18px; font-size: 13.5px; color: var(--ink-2); margin-top: 20px; }
+  .note-card b { color: var(--ink); }
+  .note-card.placeholder { background: var(--surface-sunk); border-color: var(--line); }
+
+  footer { padding: 40px 0 10px; font-size: 12px; color: var(--ink-3); line-height: 1.7; }
+  footer a { color: var(--ink-3); text-decoration: underline; text-decoration-color: var(--line); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .stat, .finding, .dash-card { transition: transform .15s ease; }
+  }
+</style>
+
+<div class="page">
+
+  <div class="topbar">
+    <div class="brand">Bank Fraud &amp; Scam Complaint Analytics</div>
+    <div class="tools">
+      <a class="back" href="index.html">← Back to portfolio</a>
+      <span>Fabric</span>
+      <span>Power BI</span>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div class="eyebrow">Data Engineering Case Study</div>
+    <h1>Benchmarking bank fraud complaints across Truist, Chase, and American Express</h1>
+    <p class="dek">
+      An end-to-end pipeline on Microsoft Fabric: a Python notebook pulls CFPB's public complaint
+      data year by year, a T-SQL warehouse cleans and models it into a star schema, and Power BI
+      sits on top with a 13-measure DAX layer &mdash; built to answer one question CFPB doesn't
+      answer for you: which of these banks actually carries more fraud, and where does it show up.
+    </p>
+    <div class="byline">
+      <span>By Gonzalo La Chica</span>
+      <span class="pill">Microsoft Fabric</span>
+      <span class="pill">T-SQL</span>
+      <span class="pill">Python</span>
+      <span class="pill">Power BI</span>
+      <span class="pill">DAX</span>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat"><div class="n tabular">176,927</div><div class="l">Complaints analyzed</div></div>
+      <div class="stat"><div class="n tabular">20,364</div><div class="l">Fraud complaints flagged</div></div>
+      <div class="stat"><div class="n tabular">14.8%</div><div class="l">Highest fraud share (Chase)</div></div>
+      <div class="stat"><div class="n tabular">3</div><div class="l">Companies benchmarked</div></div>
+    </div>
+  </header>
+
+  <section class="block">
+    <div class="block-hdr"><div class="block-num">01</div><div><h2>Why this exists</h2></div></div>
+    <div class="prose">
+      <p>
+        This one started after touring Truist's Cyber Fusion Center in Atlanta and reading how much
+        peer-to-peer payment fraud &mdash; Zelle scams especially &mdash; has become one of the biggest
+        live concerns in banking through 2025&ndash;2026. I wanted to see what the actual numbers looked
+        like, and specifically how Truist compared to the other side of that Zelle exposure.
+      </p>
+      <p>
+        Truist and JPMorgan Chase both co-own Early Warning Services, the company that operates Zelle,
+        which puts both banks directly on the hook for P2P fraud. American Express isn't a Zelle bank
+        at all, but it faces the same fraud/dispute-handling pressure on its own payment products &mdash;
+        a useful point of contrast rather than just another data point. Instead of a generic
+        complaint-volume dashboard, I narrowed in specifically on <strong>fraud- and scam-related
+        complaints</strong> in the public <a href="https://www.consumerfinance.gov/data-research/consumer-complaints/" target="_blank" rel="noopener">CFPB Consumer Complaint Database</a>.
+      </p>
+    </div>
+    <div class="note-card">
+      <b>Data limitation, called out up front:</b> CFPB stopped publishing free-text complaint
+      narratives and its own visualization tool in August 2026. The structured fields &mdash;
+      company, product, issue, sub-issue, state, dates &mdash; remain fully available via API, so
+      this project is structured-data-only <em>by design</em>, not by omission. That constraint is
+      exactly why the fraud-detection logic in block 04 had to get more careful than a keyword search.
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-hdr"><div class="block-num">02</div><div><h2>Dataset &amp; architecture</h2><div class="block-sub">176,927 complaints &middot; Truist, JPMorgan Chase, American Express &middot; 2020&ndash;2026</div></div></div>
+    <div class="prose">
+      <p>
+        A small end-to-end pipeline built on Microsoft Fabric: a Python notebook pulls CFPB's
+        Complaint Search API one calendar year at a time, a Fabric Data Warehouse (T-SQL) cleans and
+        models the result into a star schema, and Power BI sits on top with Direct Lake on SQL and a
+        13-measure DAX layer across three report pages.
+      </p>
+      <ul class="step-list">
+        <li><strong>Ingestion</strong> &mdash; a Fabric Notebook (Python: <code>requests</code> + <code>pandas</code>), pulling year-by-year to stay under the API's result-size cap</li>
+        <li><strong>Warehouse</strong> &mdash; T-SQL staging tables, then a star schema: <code>fact_complaints</code> + <code>dim_company</code> / <code>dim_date</code> / <code>dim_product</code> / <code>dim_issue</code> / <code>dim_geography</code></li>
+        <li><strong>Semantic layer</strong> &mdash; Direct Lake on SQL, 13 DAX measures</li>
+        <li><strong>Report</strong> &mdash; 3 Power BI pages: Overview, Fraud Profile, Trends</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-hdr"><div class="block-num">03</div><div><h2>Ingesting a live, 100K+ row API</h2><div class="block-sub">notebooks/ingest_cfpb_complaints.ipynb</div></div></div>
+    <div class="prose">
+      <p>
+        Chase alone has over 100K complaints in scope &mdash; enough to hit CFPB's API result-size
+        limit when requested in a single call. The notebook pulls year by year instead (2020&ndash;2026),
+        with a browser-style <code>User-Agent</code> header, since CFPB's default request identity gets
+        a 403 from its anti-bot protection. <code>consumer_complaint_narrative</code> is dropped before
+        anything reaches the lakehouse &mdash; out of scope by design (see block 01), and also the
+        single riskiest field for parsing corruption during early ingestion attempts.
+      </p>
+    </div>
+    <div class="codepanel">
+      <div class="cp-hdr"><span>ingest_cfpb_complaints.ipynb (excerpt)</span><span>Python</span></div>
+      <pre><span class="kw">headers</span> = {
+    <span class="str">"User-Agent"</span>: <span class="str">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "</span>
+                  <span class="str">"(KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"</span>,
+    <span class="str">"Accept"</span>: <span class="str">"text/csv,*/*"</span>,
+}
+
+<span class="kw">frames</span> = []
+<span class="kw">for</span> year <span class="kw">in</span> <span class="kw">range</span>(<span class="str">2020</span>, <span class="str">2027</span>):
+    date_min = <span class="kw">f</span><span class="str">"{year}-01-01"</span>
+    date_max = <span class="kw">f</span><span class="str">"{year}-12-31"</span>
+    query = <span class="str">"format=csv&"</span> + <span class="str">"&"</span>.join(<span class="kw">f</span><span class="str">"company={enc(c)}"</span> <span class="kw">for</span> c <span class="kw">in</span> companies)
+    query += <span class="kw">f</span><span class="str">"&date_received_min={date_min}&date_received_max={date_max}"</span>
+    url = base_url + <span class="str">"?"</span> + query
+
+    <span class="cm"># year-chunked, not one giant call -- Chase's volume alone hits the API's result cap</span>
+    resp = requests.get(url, headers=headers, timeout=<span class="str">120</span>)
+    year_df = pd.read_csv(StringIO(resp.text))
+    frames.append(year_df)</pre>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-hdr"><div class="block-num">04</div><div><h2>Flagging fraud &mdash; the hard part</h2><div class="block-sub">sql/08_build_dim_issue.sql</div></div></div>
+    <div class="prose">
+      <p>
+        Fraud complaints don't live in one clean CFPB category. The direct <code>"Money transfer,
+        virtual currency, or money service"</code> product only covers about 46.5% of them &mdash;
+        the rest are scattered across checking/savings accounts, credit cards, and elsewhere.
+      </p>
+      <p>
+        A first pass at solving this with keyword matching (<code>LIKE '%fraud%'</code>, <code>%scam%</code>,
+        <code>%identity theft%</code>) looked reasonable and was wrong: it caught billing complaints about
+        a "credit monitoring / identity theft protection" <em>subscription service</em> &mdash; nothing to
+        do with actual identity theft &mdash; purely because the category label contained the phrase.
+      </p>
+    </div>
+    <div class="codepanel">
+      <div class="cp-hdr"><span>is_fraud_complaint flag logic</span><span>T-SQL</span></div>
+      <pre><span class="cm">-- fraud flag = direct P2P/money-transfer product, OR an explicit,</span>
+<span class="cm">-- manually-reviewed allow-list of issue/sub-issue pairs (11 of 275)</span>
+<span class="kw">CASE</span>
+    <span class="kw">WHEN</span> product = <span class="str">'Money transfer, virtual currency, or money service'</span>
+        <span class="kw">THEN</span> <span class="str">1</span>
+    <span class="kw">WHEN</span> (issue, sub_issue) <span class="kw">IN</span> (<span class="cm">-- allow-listed pairs, reviewed by hand</span>
+        (<span class="str">'Fraud or scam'</span>, <span class="kw">NULL</span>),
+        (<span class="str">'Managing an account'</span>, <span class="str">'Unauthorized transactions or other transaction problem'</span>)
+        <span class="cm">-- ...9 more pairs, see dim_issue</span>
+    ) <span class="kw">THEN</span> <span class="str">1</span>
+    <span class="kw">ELSE</span> <span class="str">0</span>
+<span class="kw">END AS</span> is_fraud_complaint</pre>
+    </div>
+    <div class="note-card">
+      <b>Why this matters:</b> roughly 29% of all fraud complaints get filed under "Checking or
+      Savings Account" rather than the direct money-transfer category &mdash; exactly why the filter
+      had to reach beyond <code>Product = "Money transfer..."</code> alone. The allow-list replaced
+      keyword matching entirely once the false positives above turned up.
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-hdr"><div class="block-num">05</div><div><h2>Do Truist, Chase, and Amex actually look alike?</h2><div class="block-sub">sql/17_analysis_company_category_crosstab.sql</div></div></div>
+    <div class="prose">
+      <p>
+        Truist and Chase share identical Zelle/EWS ownership, so the easy assumption is that their
+        fraud profiles look the same. Breaking fraud down by product category <em>per company</em>,
+        with a partitioned window function so each company's percentages total to 100% independently,
+        says otherwise:
+      </p>
+    </div>
+    <div class="codepanel">
+      <div class="cp-hdr"><span>17_analysis_company_category_crosstab.sql</span><span>T-SQL</span></div>
+      <pre><span class="kw">SELECT</span> c.company_name, p.product_group, <span class="kw">COUNT</span>(*) <span class="kw">AS</span> fraud_complaints,
+    <span class="kw">CAST</span>(<span class="kw">COUNT</span>(*) <span class="kw">AS DECIMAL</span>(<span class="str">10</span>,<span class="str">4</span>))
+        / <span class="kw">SUM</span>(<span class="kw">COUNT</span>(*)) <span class="kw">OVER</span> (<span class="kw">PARTITION BY</span> c.company_name) * <span class="str">100</span> <span class="kw">AS</span> pct_of_company_fraud
+<span class="kw">FROM</span> fact_complaints f
+<span class="kw">JOIN</span> dim_company c <span class="kw">ON</span> f.company_key = c.company_key
+<span class="kw">JOIN</span> dim_product p <span class="kw">ON</span> f.product_key = p.product_key
+<span class="kw">WHERE</span> f.is_fraud_complaint = <span class="str">1</span>
+<span class="kw">GROUP BY</span> c.company_name, p.product_group
+<span class="kw">ORDER BY</span> c.company_name, fraud_complaints <span class="kw">DESC</span>;</pre>
+    </div>
+    <div class="tier-row">
+      <div class="tier-chip"><span class="tier-dot" style="background: var(--accent)"></span>Chase &mdash; Money Transfer <b>&nbsp;51.4%</b></div>
+      <div class="tier-chip"><span class="tier-dot" style="background: var(--warning)"></span>Truist &mdash; Checking/Savings <b>&nbsp;43.4%</b></div>
+      <div class="tier-chip"><span class="tier-dot" style="background: var(--warning); opacity:.6"></span>Truist &mdash; Money Transfer <b>&nbsp;40.8%</b></div>
+      <div class="tier-chip"><span class="tier-dot" style="background: var(--critical)"></span>Amex &mdash; Credit Card <b>&nbsp;46.4%</b></div>
+    </div>
+    <p class="prose" style="max-width:700px; font-size:13.5px; color:var(--ink-3); margin-top:4px;">
+      Chase is money-transfer-dominant, the most P2P-fraud-heavy of the three. Amex's fraud centers on
+      its own core product since it isn't a Zelle bank at all. Truist &mdash; despite sharing Chase's
+      exact Zelle/EWS exposure &mdash; splits almost evenly between checking/savings and money transfer
+      instead of mirroring Chase.
+    </p>
+  </section>
+
+  <section class="block">
+    <div class="block-hdr"><div class="block-num">06</div><div><h2>What the data showed</h2></div></div>
+    <div class="findings">
+      <div class="finding">
+        <div class="fig tabular">4.5%<span class="vs">→</span>14.8%</div>
+        <h4>Chase leads on both volume and share</h4>
+        <p>14.8% of Chase's total complaints are fraud-related &mdash; more than 3&times; American Express's 4.5%.</p>
+      </div>
+      <div class="finding">
+        <div class="fig tabular">9.4%</div>
+        <h4>Smaller bank, not a lower fraud rate</h4>
+        <p>Truist is the smallest of the three by volume but posts the second-highest fraud share at 9.4%.</p>
+      </div>
+      <div class="finding">
+        <div class="fig tabular">+19.7%<span class="vs">vs</span>-6.8%</div>
+        <h4>Truist trending up fastest, Chase cooling</h4>
+        <p>2026 YoY (annualized for the partial year): Truist +19.7%, Chase -6.8%, Amex essentially flat at +0.6%. This measures complaint counts, not fraud incidence &mdash; rising Zelle adoption and awareness can inflate volume on its own.</p>
+      </div>
+      <div class="finding">
+        <div class="fig tabular">6.8%<span class="vs">vs</span>9.7%</div>
+        <h4>Seasonality is fairly flat</h4>
+        <p>January is a slight peak (9.7% of all fraud complaints, 2020&ndash;2025), February the clear low (6.8%). No tax-season or holiday spike showed up.</p>
+      </div>
+      <div class="finding">
+        <div class="fig tabular">~50%</div>
+        <h4>Geography tracks population</h4>
+        <p>California, New York, Florida, and Texas together account for roughly half of all fraud complaints &mdash; unsurprising, but worth confirming rather than assuming.</p>
+      </div>
+      <div class="finding">
+        <div class="fig tabular">11<span class="vs">/</span>275</div>
+        <h4>A small, defensible allow-list beat keyword matching</h4>
+        <p>11 of 275 distinct issue/sub-issue pairs are hand-reviewed and flagged as fraud &mdash; replacing a keyword search that swept in unrelated billing complaints.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-hdr"><div class="block-num">07</div><div><h2>The dashboard</h2><div class="block-sub">Fraud Analytics Report &middot; Power BI, 3 pages</div></div></div>
+    <div class="prose">
+      <p>
+        The star schema and DAX layer feed a 3-page Power BI report: an Overview with headline KPIs and
+        fraud share by company; a Fraud Profile breaking down where each company's fraud actually lands
+        by category, state, and issue; and a Trends page with annualized year-over-year change and
+        seasonality by month.
+      </p>
+    </div>
+
+    <figure class="dash-shot">
+      <img src="assets/bank-fraud-overview.png" alt="Fraud Analytics Report — Overview page in Power BI, showing headline KPIs, fraud share by company, and a 2020–2025 trend teaser.">
+      <figcaption><span>Overview &mdash; headline KPIs and fraud share by company.</span></figcaption>
+    </figure>
+    <figure class="dash-shot">
+      <img src="assets/bank-fraud-fraud-profile.png" alt="Fraud Analytics Report — Fraud Profile page in Power BI, showing where each company's fraud lands by product category, state, and issue.">
+      <figcaption><span>Fraud Profile &mdash; where each company's fraud actually shows up, by category, state, and issue.</span></figcaption>
+    </figure>
+    <figure class="dash-shot">
+      <img src="assets/bank-fraud-trends.png" alt="Fraud Analytics Report — Trends page in Power BI, showing annualized year-over-year change by company and fraud seasonality by month.">
+      <figcaption><span>Trends &mdash; annualized year-over-year change and seasonality by month.</span></figcaption>
+    </figure>
+
+    <div class="note-card placeholder">
+      <b>Repo link pending.</b> This workspace runs on an org Fabric tenant, so the live report isn't
+      externally shareable, and the standalone project repo isn't public yet &mdash; screenshots and a
+      <code>.pbix</code> backup stand in for both for now. Full code (17 SQL scripts, the ingestion
+      notebook, and the <code>.pbix</code>) will be linked here once <code>bank-fraud-complaint-analytics</code>
+      is pushed to GitHub.
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-hdr"><div class="block-num">08</div><div><h2>Proof it runs</h2></div></div>
+    <div class="prose">
+      <p>
+        Code in a repo is easy to claim and easy to skim past. Here's the ingestion notebook actually
+        executing in Fabric &mdash; 7 of 7 Spark jobs succeeded, year-by-year row counts, and the company
+        breakdown printing out:
+      </p>
+    </div>
+    <figure class="dash-shot">
+      <img src="assets/bank-fraud-notebook-execution.png" alt="Fabric notebook execution log showing 7 of 7 Spark jobs succeeded, a per-year row count breakdown, and a final company-level total printed to output.">
+      <figcaption><span>ingest_cfpb_complaints.ipynb executing live in Microsoft Fabric.</span></figcaption>
+    </figure>
+    <div class="note-card">
+      This run printed <b>177,943</b> total rows rather than the <b>176,927</b> used throughout the
+      analysis above &mdash; CFPB's database is live, so a few hundred to a thousand new complaints get
+      filed between any two pulls. Every finding and the dashboard itself are validated against one
+      frozen snapshot; this screenshot is proof the ingestion mechanism works end to end, not a
+      live-synced count.
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-hdr"><div class="block-num">09</div><div><h2>Skills demonstrated</h2></div></div>
+    <div class="chip-cloud">
+      <span class="skill-chip"><b>Microsoft Fabric</b> &middot; lakehouse, warehouse, notebooks</span>
+      <span class="skill-chip"><b>T-SQL</b> &middot; star schema, CTEs, window functions</span>
+      <span class="skill-chip"><b>Python</b> &middot; API ingestion, requests + pandas</span>
+      <span class="skill-chip"><b>Data modeling</b> &middot; fact/dimension design</span>
+      <span class="skill-chip"><b>Data quality</b> &middot; allow-list vs. keyword-match tradeoffs</span>
+      <span class="skill-chip"><b>Power BI</b> &middot; Direct Lake on SQL</span>
+      <span class="skill-chip"><b>DAX</b> &middot; 13-measure semantic layer</span>
+      <span class="skill-chip"><b>Dashboard design</b> &middot; multi-page benchmarking report</span>
+    </div>
+  </section>
+
+  <section class="block" style="border-bottom: none; padding-bottom: 12px;">
+    <div class="block-hdr"><div class="block-num">10</div><div><h2>Resume-ready summary</h2></div></div>
+    <div class="resume-card">
+      <h3>Copy-paste bullets</h3>
+      <div class="hint">Quantified, action-led, ready to drop into a resume or LinkedIn project entry.</div>
+      <ul class="resume-list">
+        <li>Built an end-to-end Microsoft Fabric pipeline &mdash; Python ingestion, T-SQL star schema, Power BI/DAX semantic layer &mdash; analyzing <b>176,927</b> CFPB complaints across three banks.</li>
+        <li>Designed a fraud-detection flag combining a direct product filter with a hand-reviewed allow-list of <b>11</b> issue/sub-issue pairs, replacing keyword matching after it produced false positives.</li>
+        <li>Modeled a 5-dimension star schema (<code>fact_complaints</code> + company/date/product/issue/geography) and built <b>17</b> validated T-SQL analysis queries on top of it.</li>
+        <li>Benchmarked fraud complaint share across Truist, JPMorgan Chase, and American Express, finding Chase's share (<b>14.8%</b>) more than <b>3×</b> Amex's (4.5%) and surfacing distinct per-company fraud profiles.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    Data: CFPB Consumer Complaint Database, Complaint Search API, 2020&ndash;2026 (176,927 rows across Truist, JPMorgan Chase &amp; Co., and American Express) &middot;
+    Stack: Fabric Notebook (Python) &rarr; Fabric Data Warehouse (T-SQL) &rarr; Power BI (Direct Lake on SQL, 13 DAX measures) &middot;
+    Full SQL, notebook, and <span class="mono">.pbix</span> backup are part of this build; the standalone project repo link will be added here once it's public.
+  </footer>
+
+</div>
