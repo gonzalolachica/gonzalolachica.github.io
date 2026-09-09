@@ -275,6 +275,10 @@
         <li><strong>Report</strong> &mdash; 3 Power BI pages: Overview, Fraud Profile, Trends</li>
       </ul>
     </div>
+    <figure class="dash-shot">
+      <img src="assets/bank-fraud-data-model.png" alt="Power BI data model view showing fact_complaints at the center, joined to dim_company, dim_date, dim_geography, dim_issue, and dim_product — the star schema built in the Fabric Data Warehouse, as it actually appears in the semantic model.">
+      <figcaption><span>The actual Power BI data model &mdash; fact_complaints joined to all 5 dimensions, Direct Lake on SQL.</span></figcaption>
+    </figure>
   </section>
 
   <section class="block">
@@ -384,6 +388,10 @@
       exact Zelle/EWS exposure &mdash; splits almost evenly between checking/savings and money transfer
       instead of mirroring Chase.
     </p>
+    <figure class="dash-shot">
+      <img src="assets/bank-fraud-sql-17-proof.png" alt="Script 17 actually running in the Fabric SQL editor, showing the company × product-group crosstab query and its 24-row result set, including American Express and JPMorgan Chase rows with fraud_complaints counts and pct_of_company_fraud values.">
+      <figcaption><span>This query, actually executed in Fabric &mdash; 24 rows, succeeded in 1.4 seconds.</span></figcaption>
+    </figure>
   </section>
 
   <section class="block">
@@ -475,6 +483,18 @@
       frozen snapshot; this screenshot is proof the ingestion mechanism works end to end, not a
       live-synced count.
     </div>
+
+    <div class="prose" style="margin-top:28px;">
+      <p>
+        And here's the project's single most important number, coming straight out of the warehouse
+        &mdash; script 11, actually executed against <code>fact_complaints</code>, returning the exact
+        14.8% / 9.4% / 4.5% fraud-share figures used throughout this page:
+      </p>
+    </div>
+    <figure class="dash-shot">
+      <img src="assets/bank-fraud-sql-11-proof.png" alt="Script 11 running in the Fabric SQL editor against fact_complaints, returning a 3-row result: JPMorgan Chase & Co. 108,722 total complaints and 16,102 fraud complaints (14.8%), Truist Financial Corporation 24,412 total and 2,283 fraud (9.4%), American Express Company 43,793 total and 1,979 fraud (4.5%). Query succeeded in 7 seconds.">
+      <figcaption><span>11_analysis_fraud_by_company.sql, executed live &mdash; the headline fraud-share numbers, straight from the warehouse.</span></figcaption>
+    </figure>
   </section>
 
   <section class="block">
@@ -488,20 +508,6 @@
       <span class="skill-chip"><b>Power BI</b> &middot; Direct Lake on SQL</span>
       <span class="skill-chip"><b>DAX</b> &middot; 13-measure semantic layer</span>
       <span class="skill-chip"><b>Dashboard design</b> &middot; multi-page benchmarking report</span>
-    </div>
-  </section>
-
-  <section class="block" style="border-bottom: none; padding-bottom: 12px;">
-    <div class="block-hdr"><div class="block-num">10</div><div><h2>Resume-ready summary</h2></div></div>
-    <div class="resume-card">
-      <h3>Copy-paste bullets</h3>
-      <div class="hint">Quantified, action-led, ready to drop into a resume or LinkedIn project entry.</div>
-      <ul class="resume-list">
-        <li>Built an end-to-end Microsoft Fabric pipeline &mdash; Python ingestion, T-SQL star schema, Power BI/DAX semantic layer &mdash; analyzing <b>176,927</b> CFPB complaints across three banks.</li>
-        <li>Designed a fraud-detection flag combining a direct product filter with a hand-reviewed allow-list of <b>11</b> issue/sub-issue pairs, replacing keyword matching after it produced false positives.</li>
-        <li>Modeled a 5-dimension star schema (<code>fact_complaints</code> + company/date/product/issue/geography) and built <b>17</b> validated T-SQL analysis queries on top of it.</li>
-        <li>Benchmarked fraud complaint share across Truist, JPMorgan Chase, and American Express, finding Chase's share (<b>14.8%</b>) more than <b>3×</b> Amex's (4.5%) and surfacing distinct per-company fraud profiles.</li>
-      </ul>
     </div>
   </section>
 
