@@ -96,50 +96,47 @@
           <div class="project__index">01</div>
           <div class="project__content">
             <h3 class="project__title">Bank Fraud &amp; Scam Complaint Analytics</h3>
-            <p class="project__kicker">Microsoft Fabric + Power BI — benchmarking Truist, JPMorgan Chase &amp; American Express</p>
+            <p class="project__kicker">Python + PostgreSQL + dbt + Power BI — benchmarking Truist, JPMorgan Chase &amp; American Express</p>
             <p class="project__desc">
-              An end-to-end data engineering build on Microsoft Fabric: a Python
-              notebook ingests CFPB's public complaint data year by year, a T-SQL
-              data warehouse cleans and models it into a star schema, and Power BI
-              sits on top with a 13-measure DAX layer — all to answer a live
-              banking-industry question CFPB's raw data doesn't answer on its own:
-              which of these banks actually carries more fraud, and where does it
-              show up.
+              Which bank's customers report more fraud, once you account for how
+              big each bank is? I pulled 179,963 public CFPB complaints from 2020
+              to 2026, loaded them into Postgres with a Python script that checks
+              the data before writing anything, modeled them into a star schema
+              with dbt, and built a three-page Power BI dashboard on top.
             </p>
             <p class="project__desc">
-              176,927 complaints analyzed, 2020–2026. The fraud-detection logic
-              itself was the hardest part — an allow-list of 11 hand-reviewed
-              issue/sub-issue pairs, built after a first-pass keyword search
-              produced false positives.
+              Adjusted for deposits, Truist passed Chase in 2026: 14.8 fraud
+              complaints per $10B of deposits vs 12.7. Every number on the
+              dashboard is backed by 42 automated dbt tests and checked against
+              a separate SQL answer key, which caught two real bugs before
+              anything went live.
             </p>
 
             <div class="project__figure">
-              <img src="assets/bank-fraud-architecture.svg" alt="Architecture diagram: CFPB Complaint Search API flows through a Fabric Notebook into a lakehouse, then a T-SQL staging and star schema build in a Fabric Data Warehouse, then Direct Lake on SQL into a Power BI fraud analytics report with KPI tiles and a fraud-share-by-company mini chart." />
-              <figcaption>CFPB API → Fabric Notebook → Fabric Data Warehouse (star schema) → Power BI (Direct Lake, 13 DAX measures).</figcaption>
+              <img src="assets/bank-fraud-v2-architecture.svg" alt="Architecture diagram: the CFPB complaint API feeds a Python script that validates the data and loads a raw table in Supabase Postgres in one transaction. dbt cleans it, builds a star schema with contracts and 42 tests, and Power BI reads it through a read-only user." />
+              <figcaption>CFPB API → Python (validate, then load) → Supabase Postgres → dbt (star schema, 42 tests) → Power BI.</figcaption>
             </div>
 
             <div class="project__figure">
-              <img src="assets/bank-fraud-overview.png" alt="Fraud Analytics Report — Overview page in Power BI, showing headline KPIs, fraud share by company, and a 2020–2025 trend teaser." />
-              <figcaption>Overview — headline KPIs and fraud share by company (Power BI).</figcaption>
+              <img src="assets/bank-fraud-v2-overview.png" alt="Overview page of the Power BI dashboard: header counters, KPI cards and fraud complaints per $10B of deposits for Chase and Truist." />
+              <figcaption>Overview — scale, growth and the size-adjusted comparison (Power BI).</figcaption>
             </div>
 
             <p class="project__desc project__desc--muted">
-              This workspace runs on an org Fabric tenant, so the live report
-              isn't externally shareable — screenshots and a <code>.pbix</code>
-              backup stand in for now. Full write-up, all 3 dashboard pages, and
-              proof of the ingestion notebook actually running are in the case
-              study below.
+              This is v2. The first version ran on Microsoft Fabric inside an
+              organization's tenant, so nobody outside could open it. I rebuilt it
+              on tools anyone can run, and you can clone the repo and reproduce
+              every number.
             </p>
 
             <div class="project__tags">
-              <span>Microsoft Fabric</span><span>T-SQL</span><span>Python</span><span>Star Schema</span><span>Power BI</span><span>DAX</span>
+              <span>Python</span><span>PostgreSQL</span><span>dbt</span><span>Star Schema</span><span>Power BI</span><span>DAX</span>
             </div>
             <div class="project__links">
               <a href="bank-fraud-case-study.html">Case study →</a>
-              <a href="https://github.com/gonzalolachica/bank-fraud-complaint-analytics" target="_blank" rel="noopener">GitHub repo →</a>
-              <a href="sql/bank_fraud_08_build_dim_issue.sql">Fraud flag SQL →</a>
-              <a href="sql/bank_fraud_17_analysis_company_category_crosstab.sql">Analysis SQL →</a>
-              <a href="notebooks/bank_fraud_ingest_cfpb_complaints.ipynb">Ingestion notebook →</a>
+              <a href="https://github.com/gonzalolachica/bank-fraud-complaint-analytics-v2" target="_blank" rel="noopener">GitHub repo →</a>
+              <a href="https://github.com/gonzalolachica/bank-fraud-complaint-analytics-v2/blob/main/fraud_analytics/seeds/fraud_issue_allowlist.csv" target="_blank" rel="noopener">Fraud rules →</a>
+              <a href="https://github.com/gonzalolachica/bank-fraud-complaint-analytics-v2/tree/main/fraud_analytics/models" target="_blank" rel="noopener">dbt models →</a>
             </div>
           </div>
         </article>
